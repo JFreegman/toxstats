@@ -1,0 +1,246 @@
+{% extends 'skeleton.html' %}
+
+{% block content %}
+<title>
+    Tox Network Statistics - A visualization of the Tox DHT network
+</title>
+
+    <script type="text/javascript">
+        FusionCharts.ready(function(){
+        var fusioncharts = new FusionCharts({
+            type: 'zoomline',
+            renderAt: 'chartContainer',
+            width: '100%',
+            height: '100%',
+            dataFormat: 'json',
+            dataSource: {
+                "chart": {
+                    "caption": "{{chartTitle|safe}}",
+                    "yAxisName": "Number of Nodes",
+                    "useellipseswhenoverflow": "1",
+                    "slantlabels": "1",
+                    "formatNumberScale": "0",
+                    "compactDataMode": "1",
+                    "pixelsPerPoint": "0",
+                    "lineThickness": "1.5",
+                    "dataSeparator": "|",
+                    "theme": "ocean",
+                    "captionFont": "tahoma",
+                    "captionFontSize": "20",
+                    "captionFontColor": "#444444",
+                    "baseFontSize": "12",
+                },
+                "categories": [
+                {
+                    "category": "{{chartdates}}"
+                }
+                ],
+                "dataset": [
+                {% for item in jsonCharts %}
+                {
+                    "seriesname": "{{item[0]|safe}}",
+                    "data": "{{item[1]|safe}}"
+                },
+                {% endfor %}
+                ],
+            }
+        }
+        );
+            fusioncharts.render();
+        });
+
+        var map1 = AmCharts.makeChart("mapdiv1", {
+            "type": "map",
+            "projection":"miller",
+            "colorSteps": 30,
+            "mouseWheelZoomEnabled": true,
+            "creditsPosition": "top-right",
+            "panEventsEnabled": false,
+            "dataProvider": {
+                "map": "worldLow",
+                "getAreasFromMap": true,
+                "areas": {{jsonMap|safe}}
+            },
+            "areasSettings": {
+                "autoZoom": false,
+                "color": "#ededea",
+                "colorSolid": "#04476c",
+                "balloonText": "[[title]]: <b>[[value]]</b>"
+            },
+            "export": {
+                "enabled": true,
+                "position": "bottom-right"
+            },
+            "titles": [{
+                "color": "#444444",
+                "id": "Title-1",
+                "size": 20,
+                "fontFamily": "tahoma",
+                "text": "Unique Tox Nodes ({{mapType|safe}})",
+            }],
+        } );
+
+        var map2 = AmCharts.makeChart("mapdiv2", {
+            "type": "map",
+            "projection":"miller",
+            "colorSteps": 30,
+            "mouseWheelZoomEnabled": true,
+            "creditsPosition": "top-right",
+            "panEventsEnabled": false,
+
+            "dataProvider": {
+                "map": "worldLow",
+                "getAreasFromMap": true,
+                "areas": {{jsonMapCapita|safe}}
+             },
+            "areasSettings": {
+                "autoZoom": false,
+                "color": "#ededea",
+                "colorSolid": "#04476c",
+                "balloonText": "[[title]]: <b>[[value]]</b>",
+            },
+            valueLegend: {
+                right: 10,
+                minValue: "Fewer",
+                maxValue: "More"
+            },
+            "titles": [{
+                "color": "#444444",
+                "id": "Title-1",
+                "size": 20,
+                "fontFamily": "tahoma",
+                "text": "Unique Tox Nodes Per Capita ({{mapType|safe}})",
+            }],
+        } );
+
+        FusionCharts.ready(function(){
+            var fusioncharts = new FusionCharts({
+            type: 'doughnut2d',
+            renderAt: 'donutdiv1',
+            width: '100%',
+            height: '100%',
+            dataFormat: 'json',
+            dataSource: {
+                "chart": {
+                    "caption": "% Share of Tox Network ({{mapType|safe}})",
+                    "showBorder": "0",
+                    "use3DLighting": "0",
+                    "enableSmartLabels": "1",
+                    "startingAngle": "310",
+                    "showLabels": "1",
+                    "showPercentValues": "1",
+                    "showLegend": "0",
+                    "showTooltip": "0",
+                    "decimals": "0",
+                    "useDataPlotColorForLabels": "1",
+                    "theme": "ocean",
+                    "animateClockwise": "0",
+                    "enableMultiSlicing": "1",
+                    "captionFontSize": "20",
+                    "captionFontColor": "#444444",
+                    "labelFontSize": "12",
+                    "labelFontColor": "#444444",
+                    "decimals": "2",
+                },
+                "data": [{{jsonPie|safe}}]
+            }
+        }
+        );
+            fusioncharts.render();
+        });
+
+
+        FusionCharts.ready(function(){
+            var fusioncharts = new FusionCharts({
+            type: 'column2d',
+            renderAt: 'bardiv1',
+            width: '100%',
+            height: '100%',
+            dataFormat: 'json',
+            dataSource: {
+                "chart": {
+                    "caption": "Top 10 Countries Per Capita ({{mapType|safe}})",
+                    "yAxisName": "Unique Tox Nodes Per Capita",
+                    "yAxisFontSize": "8",
+                    "theme": "ocean",
+                    "captionFontSize": "20",
+                    "captionFontColor": "#444444",
+                    "labeldisplay": "rotate",
+                    "slantlabels": "1",
+                    "labelFontSize": "12",
+                    "labelFontColor": "#444444",
+                },
+
+                "data": [{{jsonBarCapita|safe}}]
+            }
+        }
+        );
+            fusioncharts.render();
+        });
+
+    </script>
+
+<div class="page">
+    <div id="chartContainer" class="linechart"></div>
+    <div>
+        <form action="{{ url_for('main_page') }}" method="post">
+            <div>
+                <select id="countryCode" name="countryCode" data-placeholder="Choose a country..." class="chosen-select" multiple style="width:350px;" tabindex="4">
+                    <option value=""></option>
+                    {% for code in codesList %}
+                        {% if code in countryCodes %}
+                            <option selected="selected" value={{code}}>{{countryDict[code][0]}}</option>
+                        {% else %}
+                            <option value={{code}}>{{countryDict[code][0]}}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+
+                <input type="submit" name="chartType" value="Minute"></input>
+                <input type="submit" name="chartType" value="Hour"></input>
+                <input type="submit" name="chartType" value="Day"></input>
+                <input type="submit" name="chartType" value="Month"></input>
+
+                <script type="text/javascript">
+                var config = {
+                  '.chosen-select': {max_selected_options: 5},
+                }
+                for (var selector in config) {
+                  $(selector).chosen(config[selector]);
+                }
+                </script>
+            </div>
+        </form>
+    </div>
+
+    <p class="page-divider"></p>
+
+    <div id="parent">
+        <div id="mapdiv1" class="sidechart"></div>
+        <div id="mapdiv2" class="sidechart"></div>
+    </div>
+
+    <p class="page-divider"></p>
+
+    <div id="parent">
+        <div id="donutdiv1" class="sidechart"></div>
+        <div id="bardiv1" class="sidechart"></div>
+    </div>
+    <div class="button-container">
+        <form action="{{ url_for('main_page') }}" method="post">
+            <div>
+                <input type="submit" name="mapType" value="Current"></input>
+            </div>
+            <div>
+                <input type="submit" name="mapType" value="24-Hours"></input>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="bottom-stats">
+    <p>Statistics gathering began on March 04, 2016</p>
+    <p>Last updated: {{lastUpdate}} UTC</p>
+</div>
+
+{% endblock %}

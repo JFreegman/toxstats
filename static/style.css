@@ -1,0 +1,71 @@
+body            { font-family: sans-serif; background: #fff; font-size: 16px; color: #444444; }
+a               { color: #444444; }
+h2              { color: #444444; text-align: center; }
+
+.page           { margin: 40px auto; width: 70%; border: 1px solid #d8dcdc; padding: 0.8em; background: #fff; }
+.textblock      { margin: 40px auto; width: 70%; background: #fff; line-height: 1.5; color: #444444; font-size: 18px;}
+.bottom-stats   { margin: 40px auto; width: 70%; padding-bottom: 3.3em; background: #fff; color: #444444; font-size: 16px; }
+
+.linechart      { width: 100%; height: 450px; background-color: #f8f8f8; }
+.sidechart      { vertical-align: middle; width: 50%; height: 450px; background-color: #f8f8f8; }
+.button-container form,
+.button-container form div { display: inline; }
+.button-container button   { display: inline; vertical-align: middle; }
+#parent         { display: flex; }
+
+.page-divider { border-bottom: 1px solid #b8baba;}
+
+.top-description {
+    margin: 40px auto;
+    width: 70%;
+    background: #fff;
+    color: #444;
+    font-size: 18px;
+    text-align: center;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    margin: 0 0 15px; /* buttom must be same as footer height */
+}
+footer {
+    position: absolute;
+    display: inline-block;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    font-size: 14px;
+    background-color: #f3f3f3;
+    text-align: center;
+    padding-top: 1.3em;
+    border-top: 1px solid #d8dcdc;
+}
+
+.footerdiv {
+  float: left;
+  width: 33%;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 230px;
+    background-color: #444444;
+    color: #fff;
+    text-align: center;
+    border-radius: 7px;
+    padding: 10px;
+    position: absolute;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang ="en">
+
+    {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning alert-dismissible" role="alert" style="text-align: center;">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">x</span></button>
+            {{message}}
+            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <input type="hidden" name="cmd" value="_s-xclick">
+            <input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+            ">
+            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+            <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+            </form>
+
+        </div>
+    {% endfor %}
+
+    <head>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='chosen.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+        <link rel="icon" type="image/png" href="favicon.ico">
+
+        <meta name="description" content="A statistical representation of the Tox DHT network, including charts and maps for overall network traffic, as well as for individual countries."></meta>
+
+        <script type="text/javascript" src="js/jquery-1.12.2.min.js"></script>
+        <script type="text/javascript" src="js/chosen.jquery.js"></script>
+        <script type="text/javascript" src="ammap/ammap.js"></script>
+        <script type="text/javascript" src="ammap/maps/js/worldLow.js"></script>
+        <script type="text/javascript" src="fusioncharts/js/fusioncharts.chrats.js"></script>
+        <script type="text/javascript" src="fusioncharts/js/fusioncharts.js"></script>
+        <script type="text/javascript" src="fusioncharts/js/themes/fusioncharts.theme.ocean.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+        <div class="top-description">
+            <header>
+                <h1>Tox Network Statistics</h1>
+            </header>
+            A visualization of the Tox network, updated roughly every 5 minutes. See the <a href="/about">about</a> page for more information.</a>
+        </div>
+
+    </head>
+
+    <body>
+        {% block content %}{% endblock %}
+
+        <a name="donate"></a>
+
+        <footer>
+            <div class="footerdiv">
+                <a href="https://github.com/JFreegman/toxcrawler" target="_blank" title="The network crawler is open source!"><img src="img/Github.svg" width="40" height="40"></img></a>
+                <a href="tox:A288022E6F92960A98920B5C0013E2C83612E5EA65AE23CF7F4D8C5FB9CB9F45DE2DBBC20DC1" title="Tox me!" target="_blank"><img src="img/toxlogo.svg" width="40" height="40"></img></a>
+
+            </div>
+            <div class="footerdiv">
+                <a href="/">Main Page</a>
+                |
+                <a href="/about">About</a>
+                |
+                <a href="mailto:jfreegman@gmail.com">Contact</a>
+                <p>© 2018, Jfreegman. All Rights Reserved.</p>
+            </div>
+            <br style="clear:left;"/>
+        </footer>
+    </body>
+</html>

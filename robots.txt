@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /js/
+Disallow: /canvasjs/
+Disallow: /ammap/
+Disallow: /json/
+Disallow: /img/
+Disallow: /static/

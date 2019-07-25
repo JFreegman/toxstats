@@ -1,0 +1,15 @@
+{% extends 'skeleton.html' %}
+
+{% block content %}
+<title> Tox Network Statistics - About </title>
+<div class="textblock">
+    <h2>About</h2>
+    The Tox <div class="tooltip">DHT<span class="tooltiptext">Distributed Hash Table</span></div> network is a highly scalable and censorship-resistant distributed peer-to-peer network, the purpose of which is to replace the functionality of centralized servers and trusted authorities. All <div class="tooltip">UDP-enabled<span class="tooltiptext">Most clients enable UDP by default, with an exception for mobile clients</span></div> Tox clients—referred to as nodes—are a part of this network.
+
+    <p>The statistics displayed on this website represent a low-end approximation of unique nodes within the network.</p>
+
+    <p>This website was created by Jfreegman. Statistics are generated using publicly available network data obtained via <a href=https://github.com/JFreegman/toxcrawler target="_blank">toxcrawler</a>. If you find these statistics or any of <a href="https://github.com/search?q=user%3AJFreegman+tox" target="_blank">my other</a> Tox-related projects useful, please consider a small donation.</p>
+    <p>Learn more about Tox at its <a href="https://tox.chat" target="_blank">official website.</a></p>
+</div>
+
+{% endblock %}
