@@ -1,5 +1,20 @@
 #!/usr/bin/env python
 
+# This file is part of Toxstats.
+
+# Toxstats is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# Toxstats is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with Toxstats.  If not, see <https://www.gnu.org/licenses/>.
+
 from flask import Flask, redirect, url_for, render_template, request, make_response, g, flash
 from flask.ext.cache import Cache
 from contextlib import closing
@@ -16,13 +31,13 @@ COUNTRIES_JSON_PATH = 'json/countries.json'
 
 app = Flask(__name__)
 
-# Default config
+# Default config (fill these out)
 app.config.update(dict(
     DEBUG=False,
     DATABASE='crawler.db',
-    SECRET_KEY='TH3future!616',
-    USERNAME='freegman',
-    PASSWORD='C0ckwork AngelS'
+    SECRET_KEY='',
+    USERNAME='',
+    PASSWORD=''
 ))
 
 # Override default settings if environment variable exists
